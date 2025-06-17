@@ -1,15 +1,19 @@
 from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
 
 from .serializers import HouseCreateSerializer
 from .serializers import FlatCreateSerializer
 from .serializers import HouseFlatListSerializer
 from .serializers import FlatStatusUpdateSerializer
 from .models import Houses, Flats
+from users.permissions import IsModerator
 
 
 class HouseCreateView(APIView):
+    permission_classes = [IsAuthenticated, IsModerator]
+
     def post(self, request):
         serializer = HouseCreateSerializer(data=request.data)
         if serializer.is_valid():
