@@ -37,6 +37,8 @@ ALLOWED_HOSTS = ["0.0.0.0", "127.0.0.1"]
 # Application definition
 
 INSTALLED_APPS = [
+    #'users.apps.UsersConfig',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -117,6 +119,7 @@ AUTH_USER_MODEL = 'users.User'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
+        #'rest_framework_simplejwt.authentication.JWTStatelessUserAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
 }

@@ -28,5 +28,8 @@ class User(AbstractUser):
         related_query_name="user",
     )
 
+    # Добавляем явное определение id
+    id = models.AutoField(primary_key=True)
+
     def __str__(self):
         return self.username

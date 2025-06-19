@@ -13,14 +13,11 @@ class Houses(models.Model):
     build_year = models.PositiveSmallIntegerField(null=True)
     developer = models.CharField(max_length=50, null=True)
     created_at = models.DateTimeField(
-        default=datetime.now().strftime("%Y-%m-%dT%H:%M:%S%Z"))
+        default=datetime.now().strftime("%Y-%m-%dT%H:%M:%S%Z"), auto_created=True)
     update_at = models.DateTimeField(null=True)
 
     def __str__(self):
         return self.address
-
-    class Meta:
-        pass
 
 
 class Flats(models.Model):
@@ -39,9 +36,6 @@ class Flats(models.Model):
     def __str__(self):
         return f"This is flat #{self.flat_id}"
 
-    class Meta:
-        pass
-
 
 class Users(models.Model):
     user_id = models.UUIDField(
@@ -53,6 +47,3 @@ class Users(models.Model):
 
     def __str__(self):
         return f"This is {self.email} user"
-
-    class Meta:
-        pass

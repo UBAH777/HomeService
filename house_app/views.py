@@ -2,6 +2,7 @@ from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.authentication import JWTStatelessUserAuthentication
 
 from .serializers import HouseCreateSerializer
 from .serializers import FlatCreateSerializer
@@ -12,6 +13,7 @@ from users.permissions import IsModerator
 
 
 class HouseCreateView(APIView):
+    authentication_classes = [JWTStatelessUserAuthentication]
     permission_classes = [IsAuthenticated, IsModerator]
 
     def post(self, request):
