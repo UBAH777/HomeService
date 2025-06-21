@@ -37,18 +37,22 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
 
 
 class UserLoginSerializer(serializers.Serializer):
-    email = serializers.EmailField()
+    #email = serializers.EmailField()
+    username = serializers.CharField()
     password = serializers.CharField(write_only=True)
 
     def validate(self, attrs):
-        email = attrs.get('email')
+        #email = attrs.get('email')
+        username = attrs.get('username')
         password = attrs.get('password')
 
-        if email and password:
-            user = authenticate(request=self.context.get('request'),
-                              email=email, password=password)
+        #if email and password:
+        if username and password:
+            #user = authenticate(request=self.context.get('request'), email=email, password=password)
+            user = authenticate(request=self.context.get('request'), username=username, password=password)
             if not user:
                 raise serializers.ValidationError('Неверные учетные данные')
+                
         else:
             raise serializers.ValidationError('Необходимо указать email и пароль')
 

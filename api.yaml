@@ -40,8 +40,8 @@ paths:
             schema:
               type: object
               properties:
-                id:
-                  $ref: '#/components/schemas/UserId'
+                username:
+                  $$ref:
                 password:
                   $ref: '#/components/schemas/Password'
       responses:

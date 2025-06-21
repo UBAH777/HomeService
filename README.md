@@ -1,14 +1,14 @@
 ## Сервис для продажи и аренды недвижимости HomeService
 
 На данный момент реализован следующий функционал:
-- Создание дома, добавление его в базу сервиса;
-- Создание квартиры, связанной с домом;
-- Обновление/модификация данных о квартире (модерация);
-- Получение списка доступных квартир для текущего дома.
+- Ролевая модель доступа пользователей к сервису: различный функционал для клиентов и модераторов;
+- Создание дома, добавление его в базу сервиса (для модераторов);
+- Создание квартиры, связанной с домом (для всех авторизованных пользователей);
+- Обновление/модификация данных о квартире (для модераторов);
+- Получение списка доступных квартир для текущего дома (для всех авторизованных пользователей).
 
 
 В разработке:
-- Ролевая модель доступа пользователей к сервису: различный функционал для клиентов и модераторов;
 - Подписка на рассылку о новых объявлениях о недвижимости.
 
 
@@ -57,7 +57,65 @@
 <img src="prjct_scheme.jpg">
 
 ## API
+- /api/v1/auth/register POST
+- /api/v1/auth/login POST
+
 - /api/v1/house/create POST
 - /api/v1/house/{id} GET
 - /api/v1/flat/create POST
 - /api/v1/flat/update/{id} PATCH
+
+
+## Примеры запросов и ответов:
+<table style="width: 80%" >
+<th></th>
+<tr>
+<td>
+<pre>
+<p>
+curl --location '127.0.0.1:8000/api/v1/auth/register/' \
+    --header 'Content-Type: application/json' \
+    --data-raw '{
+        "username": "vlad",
+        "email": "vlad@example.com",
+        "password": "vladpassword123",
+        "user_type": "moderator"
+    }'
+</p>
+</pre>
+</td>
+</tr>
+
+<tr>
+<td>
+<pre>
+<p>
+curl --location '127.0.0.1:8000/api/v1/auth/login/' \
+--header 'Content-Type: application/json' \
+--data '{
+    "username": "vlad",
+    "password": "vladpassword123"
+}'
+</p>
+</pre>
+</td>
+</tr>
+
+<tr>
+<td>
+<pre>
+<p>
+curl --location '127.0.0.1:8000/api/v1/house/create/' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer <...>' \
+--data '{
+    "house_number": "123",
+    "address": "ул. Примерная, 150",
+    "build_year": 2020,
+    "developer": "ГК ПИК"
+}'
+</p>
+</pre>
+</td>
+</tr>
+</table>
